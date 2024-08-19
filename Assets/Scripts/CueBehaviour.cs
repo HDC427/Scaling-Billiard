@@ -9,6 +9,7 @@ public class CueBehaviour : MonoBehaviour
 
     private Vector3 cueBallCenter;
     private Vector3 offSetFromCueBall = new(0, 0, -1.85f);
+    private Vector3 offSetToCueCamera = new(0, 0.2f, 1.5f);
     private float facingAngle = 0, slopingAngle = 0;
     private Vector3 facingDirection = Vector3.forward;
     [SerializeField] private float rotationSpeed = 30;
@@ -20,23 +21,32 @@ public class CueBehaviour : MonoBehaviour
     [SerializeField] private float disappearAfterShot;
     void Start()
     {
-        
+        resetPosition();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.playerTurn > 0)
+        if (GameManager.GM.gameState == GameState.playerControl)
         {
-            cueBallCenter = cueBall.transform.position;
             handleRotation();
             handleShoot();
         }
     }
 
-    void resetPosition()
+    public void resetPosition()
     {
-        
+        GetComponent<Rigidbody>().isKinematic = true;
+
+        cueBallCenter = cueBall.transform.position;
+        transform.position = cueBallCenter + offSetFromCueBall;
+        transform.rotation = Quaternion.identity;
+        slopingAngle = 0;
+        transform.RotateAround(cueBallCenter, Vector3.up, -facingAngle);
+
+        cueCamera.transform.position = transform.position + offSetToCueCamera;
+
+        GetComponent<Rigidbody>().isKinematic = false;
     }
 
     void handleRotation()
@@ -45,10 +55,10 @@ public class CueBehaviour : MonoBehaviour
         transform.RotateAround(cueBallCenter, Vector3.up, -hRotation);
         cueCamera.transform.RotateAround(cueBallCenter, Vector3.up, -hRotation);
         facingAngle += hRotation;
-        facingDirection = new Vector3(-Mathf.Sin(facingAngle), 0, Mathf.Cos(facingAngle));
+        float facingRadian = facingAngle / 180 * Mathf.PI;
+        facingDirection = new Vector3(-Mathf.Sin(facingRadian), 0, Mathf.Cos(facingRadian));
 
         float vRotation = Input.GetAxis("Vertical") * Time.deltaTime * rotationSpeed;
-        float facingRadian = facingAngle / 180 * Mathf.PI;
         Vector3 rotateAxis = new Vector3(Mathf.Cos(facingRadian), 0, Mathf.Sin(facingRadian));
         if (vRotation < 0)
         {
@@ -71,6 +81,7 @@ public class CueBehaviour : MonoBehaviour
 
     void handleShoot()
     {
+        Debug.DrawRay(cueBallCenter, facingDirection);
         if (Input.GetKeyDown(KeyCode.Space))
         {
             shootForce = minForce;
@@ -79,7 +90,7 @@ public class CueBehaviour : MonoBehaviour
         {
             float forceChange = forceChangeRate * Time.deltaTime;
             shootForce += forceChange;
-            transform.Translate(-forceToDisplacement * forceChange * facingDirection.x, 0, -forceToDisplacement * forceChange * facingDirection.z);
+            transform.Translate(forceToDisplacement * forceChange * Vector3.back);
             if (shootForce < minForce || shootForce > maxForce)
             {
                 forceChangeRate = -forceChangeRate;
@@ -88,8 +99,7 @@ public class CueBehaviour : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Space))
         {
             GetComponent<Collider>().isTrigger = false;
-            Vector3 F = new(shootForce * facingDirection.x, 0, shootForce * facingDirection.z);
-            GetComponent<Rigidbody>().AddForce(F, ForceMode.Acceleration);
+            GetComponent<Rigidbody>().AddRelativeForce(shootForce * Vector3.forward, ForceMode.Acceleration);
         }
     }
 

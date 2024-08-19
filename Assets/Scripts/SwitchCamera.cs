@@ -16,12 +16,9 @@ public class SwitchCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.playerTurn > 0)
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if (Input.GetKeyDown(KeyCode.Tab))
-            {
-                cam.enabled = !cam.enabled;
-            }
+            cam.enabled = !cam.enabled;
         }
     }
 }
