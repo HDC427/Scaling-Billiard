@@ -9,8 +9,9 @@ public class CueBehaviour : MonoBehaviour
 
     private Vector3 cueBallCenter;
     private Vector3 offSetFromCueBall = new(0, 0, -1.85f);
-    private Vector3 offSetToCueCamera = new(0, 0.2f, 1.5f);
-    private float facingAngle = 0, slopingAngle = 0;
+    private Vector3 offSetCueBallToCueCamera = new(0, 0.2f, -0.35f);
+    private Quaternion initialCameraRotation;
+    [SerializeField] private float facingAngle = 0, slopingAngle = 0;
     private Vector3 facingDirection = Vector3.forward;
     [SerializeField] private float rotationSpeed = 30;
 
@@ -21,6 +22,7 @@ public class CueBehaviour : MonoBehaviour
     [SerializeField] private float disappearAfterShot;
     void Start()
     {
+        initialCameraRotation = cueCamera.transform.rotation;
         resetPosition();
     }
 
@@ -44,7 +46,9 @@ public class CueBehaviour : MonoBehaviour
         slopingAngle = 0;
         transform.RotateAround(cueBallCenter, Vector3.up, -facingAngle);
 
-        cueCamera.transform.position = transform.position + offSetToCueCamera;
+        cueCamera.transform.position = cueBallCenter + offSetCueBallToCueCamera;
+        cueCamera.transform.rotation = initialCameraRotation;
+        cueCamera.transform.RotateAround(cueBallCenter, Vector3.up, -facingAngle);
 
         GetComponent<Rigidbody>().isKinematic = false;
     }
