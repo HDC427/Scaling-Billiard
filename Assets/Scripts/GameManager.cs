@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public GameState gameState = GameState.playerControl;
     public int numBallsRolling = 0;
     public int playerTurn = 0;
+    public int[] playerScore = { 0, 0 };
     [SerializeField] GameObject cue;
     // Start is called before the first frame update
     void Start()
@@ -43,5 +44,10 @@ public class GameManager : MonoBehaviour
                 cue.GetComponent<CueBehaviour>().resetPosition();
             }
         }
+    }
+
+    public void addScore(int score)
+    {
+        playerScore[playerTurn] += score;
     }
 }
