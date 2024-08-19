@@ -17,22 +17,19 @@ public class BallBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.GM.gameState == GameState.ballRolling)
-        {
-            if (isRolling)
-            {
-                checkMotion();
-            }
-        }
+ 
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (!isRolling && !collision.gameObject.CompareTag("Table"))
         {
+            // A still ball starts moving
             isRolling = true;
             GameManager.GM.numBallsRolling += 1;
             GameManager.GM.gameState = GameState.ballRolling;
+            // Check every checkInterval seconds the position of the ball,
+            // if the position is the same as the last check, regard the ball as still
             StartCoroutine(checkMotion());
         }
     }

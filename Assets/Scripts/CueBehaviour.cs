@@ -42,6 +42,7 @@ public class CueBehaviour : MonoBehaviour
 
         cueBallCenter = cueBall.transform.position;
         transform.position = cueBallCenter + offSetFromCueBall;
+        transform.position -= new Vector3(0, 0, (cueBall.transform.localScale.x - 1) * 0.035f);
         transform.rotation = Quaternion.identity;
         slopingAngle = 0;
         transform.RotateAround(cueBallCenter, Vector3.up, -facingAngle);
