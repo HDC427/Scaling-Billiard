@@ -28,6 +28,40 @@ public class BallBehaviour : MonoBehaviour
             isRolling = true;
             GameManager.GM.numBallsRolling += 1;
             GameManager.GM.gameState = GameState.ballRolling;
+
+            // check first hit
+            if (!GameManager.GM.firstHit)
+            {
+                if (collision.gameObject.CompareTag("CueBall"))
+                {
+                    GameManager.GM.firstHit = true;
+                    if (GameManager.GM.acceptableBall > 0)
+                    {
+                        if (score == GameManager.GM.acceptableBall)
+                        {
+                            GameManager.GM.successHit = true;
+                        }
+                        else
+                        {
+                            GameManager.GM.addScoreToOpponent(score > 4 ? score : 4);
+                        }
+                    }
+                    else // acceptableBall == 0, first hit can be any colored ball
+                    {
+                        if (score > 1)
+                        {
+                            GameManager.GM.successHit = true;
+                            GameManager.GM.acceptableBall = score;
+                        }
+                        else
+                        {
+                            GameManager.GM.addScoreToOpponent(4);
+                        }
+                    }
+                    
+                }
+            }
+
             // Check every checkInterval seconds the position of the ball,
             // if the position is the same as the last check, regard the ball as still
             StartCoroutine(checkMotion());
@@ -48,4 +82,21 @@ public class BallBehaviour : MonoBehaviour
         }
         
     }
+
+    public void handlePool()
+    {
+        if (score == GameManager.GM.acceptableBall)
+        {
+            GameManager.GM.successPool = true;
+            GameManager.GM.addScore(score);
+        }
+        else
+        {
+            GameManager.GM.faulPool = false;
+            GameManager.GM.addScoreToOpponent(score > 4 ? score : 4);
+        }
+        afterPool();
+    }
+
+    protected virtual void afterPool() { }
 }

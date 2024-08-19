@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class PoolBehaviour : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class PoolBehaviour : MonoBehaviour
         int score = other.gameObject.GetComponent<BallBehaviour>().score;
         other.gameObject.SetActive(false);
         GameManager.GM.numBallsRolling -= 1;
-        GameManager.GM.addScore(score);
+        other.gameObject.GetComponent<BallBehaviour>().handlePool();
         if (scaleUp)
         {
             cueBall.transform.localScale *= (1 + score / 10.0f);
@@ -33,5 +34,10 @@ public class PoolBehaviour : MonoBehaviour
         {
             cueBall.transform.localScale /= (1 + score / 10.0f);
         }
+    }
+
+    void handlePool(int score)
+    {
+        
     }
 }
