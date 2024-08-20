@@ -8,21 +8,10 @@ public class BallBehaviour : MonoBehaviour
     public bool isRolling = false;
     private Vector3 positionLastCheck;
     public float checkInterval = 0.1f;
-    // Start is called before the first frame update
-    void Start()
-    {
-        GameManager.GM.numBalls += 1;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
- 
-    }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (GameManager.GM.gameState == GameState.ballRolling && !isRolling && !collision.gameObject.CompareTag("Table"))
+        if (GameManager.GM.gameState == GameState.ballRolling && !isRolling)
         {
             // A still ball starts moving
             isRolling = true;
@@ -42,7 +31,7 @@ public class BallBehaviour : MonoBehaviour
                         }
                         else
                         {
-                            GameManager.GM.addScoreToOpponent(score);
+                            GameManager.GM.setFaulScore(score);
                         }
                     }
                     else // acceptableBall == 0, first hit can be any colored ball
@@ -54,7 +43,7 @@ public class BallBehaviour : MonoBehaviour
                         }
                         else
                         {
-                            GameManager.GM.addScoreToOpponent(score);
+                            GameManager.GM.setFaulScore(score);
                         }
                     }
                     
@@ -67,12 +56,12 @@ public class BallBehaviour : MonoBehaviour
         }
     }
 
-    IEnumerator checkMotion()
+    protected IEnumerator checkMotion()
     {
         while (isRolling)
         {
             yield return new WaitForSeconds(checkInterval);
-            if (transform.position == positionLastCheck)
+            if (Vector3.Distance(transform.position, positionLastCheck) < 1e-4)
             {
                 isRolling = false;
                 GameManager.GM.numBallsRolling -= 1;
@@ -87,15 +76,14 @@ public class BallBehaviour : MonoBehaviour
         if (score == GameManager.GM.acceptableBall)
         {
             GameManager.GM.successPool = true;
-            GameManager.GM.addScore(score);
         }
         else
         {
             GameManager.GM.faulPool = true;
-            GameManager.GM.addScoreToOpponent(score);
+            GameManager.GM.setFaulScore(score);
         }
-        gameObject.SetActive(false);
         GameManager.GM.numBallsRolling -= 1;
+        isRolling = false;
         afterPool();
     }
 

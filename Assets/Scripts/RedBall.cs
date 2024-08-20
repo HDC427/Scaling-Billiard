@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class RedBall : BallBehaviour
 {
-
-    // Update is called once per frame
-    void Update()
+    // Start is called before the first frame update
+    void Start()
     {
-        
+        GameManager.GM.numBalls += 1;
     }
-
     protected override void afterPool()
     {
         GameManager.GM.numBalls -= 1;
+        gameObject.SetActive(false);
     }
 }

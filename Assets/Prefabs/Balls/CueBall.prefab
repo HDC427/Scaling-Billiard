@@ -95,8 +95,8 @@ Rigidbody:
   m_GameObject: {fileID: 5959620920072618557}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.5
+  m_Drag: 0.5
+  m_AngularDrag: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -146,3 +146,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41e0c2340c0235042927895fd6afd955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  score: 0
+  isRolling: 0
+  checkInterval: 0.1
+  browBall: {fileID: 0}
+  topCamera: {fileID: 0}
+  cueCamera: {fileID: 0}
+  cue: {fileID: 0}

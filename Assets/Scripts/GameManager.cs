@@ -7,8 +7,9 @@ using TMPro;
 
 public enum GameState
 {
+    placingCueBall,
     playerControl,
-    ballRolling,
+    ballRolling
 };
 
 
@@ -17,18 +18,19 @@ public class GameManager : MonoBehaviour
 {
     
     public static GameManager GM;
-    public GameState gameState = GameState.playerControl;
+    public GameState gameState;
     public int numBallsRolling = 0;
     public int playerTurn = 0;
     public int acceptableBall = 1;
+    public int faulScore = 4;
     public bool firstHit = false;
-    public bool successHit, successPool, faulPool;
+    public bool successHit, successPool, faulPool, cuePool;
     public int numBalls = 0;
     const int totalColorBalls = 6;
     public bool clearColorPhase = false;
     public int[] playerScore;
-    [SerializeField] GameObject cue;
-    [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] GameObject cueBall;
+    [SerializeField] TextMeshProUGUI infoText, scoreText;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,42 +50,51 @@ public class GameManager : MonoBehaviour
 
     void initialize()
     {
-        gameState = GameState.playerControl;
+        gameState = GameState.placingCueBall;
         numBallsRolling = 0;
         playerTurn = 0;
         acceptableBall = 1;
+        faulScore = 4;
         firstHit = false;
-        successHit = successPool = faulPool = false;
+        successHit = successPool = faulPool = cuePool = false;
         clearColorPhase = false;
         playerScore[0] = playerScore[1] = 0;
         scoreText.text = $"Player1: {playerScore[0]}\nPlayer2: {playerScore[1]}";
     }
     void handleGameState()
     {
-        if (gameState == GameState.ballRolling)
+        switch (gameState)
         {
-            if(numBallsRolling == 0)
-            {
-                // When all rolling balls come to a stop, a new shot start
-                gameState = GameState.playerControl;
-                handleShotResult();
+            case GameState.ballRolling:
+                if (numBallsRolling == 0)
+                {
+                    // All rolling balls come to a stop, determine next shot according to flags
+                    handleShotResult();
+                    cueBall.GetComponent<CueBall>().checkPooled();
+                }
+                break;
 
-                cue.SetActive(true);
-                cue.GetComponent<Collider>().isTrigger = true;
-                cue.GetComponent<CueBehaviour>().resetPosition();
-            }
+            case GameState.playerControl:
+                infoText.text = $"Player{playerTurn + 1}'s turn";
+                break;
+
+            case GameState.placingCueBall:
+                infoText.text = $"Player{playerTurn + 1} place the cue ball";
+                break;
         }
     }
 
     void handleShotResult()
     {
-        if (!firstHit)
+        if (!firstHit || !successHit || faulPool)
         {
-            addScoreToOpponent(4);
+            // Faul
+            addScoreToOpponent(faulScore);
         }
         if (successHit && successPool && !faulPool)
         {
-            // Succeeded a shot
+            // Succeeded a shot, accecptableBall can't be 0
+            addScore(acceptableBall);
             if (acceptableBall == 1)
             {
                 // Successfully pooled a red ball, next shot can be any colored ball
@@ -139,6 +150,14 @@ public class GameManager : MonoBehaviour
     {
         playerScore[(playerTurn + 1) % 2] += score > 4 ? score : 4;
         scoreText.text = $"Player1: {playerScore[0]}\nPlayer2: {playerScore[1]}";
+    }
+
+    public void setFaulScore(int score)
+    {
+        if (score > faulScore)
+        {
+            faulScore = score;
+        }
     }
 
     public void Restart()
