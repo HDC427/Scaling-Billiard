@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public enum GameState
@@ -25,22 +26,38 @@ public class GameManager : MonoBehaviour
     public int numBalls = 0;
     const int totalColorBalls = 6;
     public bool clearColorPhase = false;
-    public int[] playerScore = { 0, 0 };
+    public int[] playerScore;
     [SerializeField] GameObject cue;
     [SerializeField] TextMeshProUGUI scoreText; 
     // Start is called before the first frame update
     void Start()
     {
         GM = this;
-        scoreText.text = $"Player1: {playerScore[0]}\nPlayer2: {playerScore[1]}";
+        initialize();
     }
 
     // Update is called once per frame
     void Update()
     {
         handleGameState();
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Restart();
+        }
     }
 
+    void initialize()
+    {
+        gameState = GameState.playerControl;
+        numBallsRolling = 0;
+        playerTurn = 0;
+        acceptableBall = 1;
+        firstHit = false;
+        successHit = successPool = faulPool = false;
+        clearColorPhase = false;
+        playerScore[0] = playerScore[1] = 0;
+        scoreText.text = $"Player1: {playerScore[0]}\nPlayer2: {playerScore[1]}";
+    }
     void handleGameState()
     {
         if (gameState == GameState.ballRolling)
@@ -122,5 +139,11 @@ public class GameManager : MonoBehaviour
     {
         playerScore[(playerTurn + 1) % 2] += score > 4 ? score : 4;
         scoreText.text = $"Player1: {playerScore[0]}\nPlayer2: {playerScore[1]}";
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(0);
+        initialize();
     }
 }
