@@ -11,7 +11,7 @@ public class BallBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (GameManager.GM.gameState == GameState.ballRolling && !isRolling && !collision.gameObject.CompareTag("Table"))
+        if (GameManager.GM.gameState == GameState.ballRolling && !isRolling)
         {
             // A still ball starts moving
             isRolling = true;
@@ -61,7 +61,7 @@ public class BallBehaviour : MonoBehaviour
         while (isRolling)
         {
             yield return new WaitForSeconds(checkInterval);
-            if (transform.position == positionLastCheck)
+            if (Vector3.Distance(transform.position, positionLastCheck) < 1e-4)
             {
                 isRolling = false;
                 GameManager.GM.numBallsRolling -= 1;
