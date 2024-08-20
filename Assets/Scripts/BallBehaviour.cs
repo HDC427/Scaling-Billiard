@@ -61,7 +61,7 @@ public class BallBehaviour : MonoBehaviour
         while (isRolling)
         {
             yield return new WaitForSeconds(checkInterval);
-            if (Vector3.Distance(transform.position, positionLastCheck) < 1e-4)
+            if (Vector3.Distance(transform.position, positionLastCheck) < 5e-4)
             {
                 isRolling = false;
                 GameManager.GM.numBallsRolling -= 1;
