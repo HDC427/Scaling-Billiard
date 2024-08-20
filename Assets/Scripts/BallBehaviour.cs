@@ -11,7 +11,7 @@ public class BallBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        positionLastCheck = transform.position;
+        GameManager.GM.numBalls += 1;
     }
 
     // Update is called once per frame
@@ -43,7 +43,7 @@ public class BallBehaviour : MonoBehaviour
                         }
                         else
                         {
-                            GameManager.GM.addScoreToOpponent(score > 4 ? score : 4);
+                            GameManager.GM.addScoreToOpponent(score);
                         }
                     }
                     else // acceptableBall == 0, first hit can be any colored ball
@@ -55,7 +55,7 @@ public class BallBehaviour : MonoBehaviour
                         }
                         else
                         {
-                            GameManager.GM.addScoreToOpponent(4);
+                            GameManager.GM.addScoreToOpponent(score);
                         }
                     }
                     
@@ -92,9 +92,11 @@ public class BallBehaviour : MonoBehaviour
         }
         else
         {
-            GameManager.GM.faulPool = false;
-            GameManager.GM.addScoreToOpponent(score > 4 ? score : 4);
+            GameManager.GM.faulPool = true;
+            GameManager.GM.addScoreToOpponent(score);
         }
+        gameObject.SetActive(false);
+        GameManager.GM.numBallsRolling -= 1;
         afterPool();
     }
 

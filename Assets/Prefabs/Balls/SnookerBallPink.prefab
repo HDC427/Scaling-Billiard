@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2995698824745590919}
   - component: {fileID: 9154041738649209908}
   - component: {fileID: -4013678330196725468}
-  - component: {fileID: 2013362993688807654}
+  - component: {fileID: -9052890143299809662}
   m_Layer: 0
   m_Name: SnookerBallPink
   m_TagString: Untagged
@@ -134,7 +134,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.03514923
   m_Center: {x: 0, y: 0.000000074505806, z: 0}
---- !u!114 &2013362993688807654
+--- !u!114 &-9052890143299809662
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8180523014085208274}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edb588f9391470f47a5d83bf2a943df2, type: 3}
+  m_Script: {fileID: 11500000, guid: 0df1a7083d6e8024db1a19f371588c60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   score: 6

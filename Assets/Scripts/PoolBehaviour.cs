@@ -23,8 +23,6 @@ public class PoolBehaviour : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         int score = other.gameObject.GetComponent<BallBehaviour>().score;
-        other.gameObject.SetActive(false);
-        GameManager.GM.numBallsRolling -= 1;
         other.gameObject.GetComponent<BallBehaviour>().handlePool();
         if (scaleUp)
         {
@@ -34,10 +32,5 @@ public class PoolBehaviour : MonoBehaviour
         {
             cueBall.transform.localScale /= (1 + score / 10.0f);
         }
-    }
-
-    void handlePool(int score)
-    {
-        
     }
 }

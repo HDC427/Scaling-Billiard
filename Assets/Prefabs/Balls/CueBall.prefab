@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5672125633646836997}
   - component: {fileID: -2538526522034121009}
   - component: {fileID: -4569727215391051591}
-  - component: {fileID: -5973081651093443242}
+  - component: {fileID: 1577210839839980890}
   m_Layer: 0
   m_Name: CueBall
   m_TagString: Untagged
@@ -134,7 +134,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.03514923
   m_Center: {x: 0.000000014901161, y: 0.000000037252903, z: 0.0000001527369}
---- !u!114 &-5973081651093443242
+--- !u!114 &1577210839839980890
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,9 +143,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5959620920072618557}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edb588f9391470f47a5d83bf2a943df2, type: 3}
+  m_Script: {fileID: 11500000, guid: 41e0c2340c0235042927895fd6afd955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  score: 0
-  isRolling: 0
-  checkInterval: 0.1

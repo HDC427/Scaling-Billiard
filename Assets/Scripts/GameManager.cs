@@ -9,6 +9,7 @@ public enum GameState
     ballRolling,
 };
 
+
 [DefaultExecutionOrder(-50)]
 public class GameManager : MonoBehaviour
 {
@@ -20,7 +21,9 @@ public class GameManager : MonoBehaviour
     public int acceptableBall = 1;
     public bool firstHit = false;
     public bool successHit, successPool, faulPool;
-    public int numRedBalls = 0;
+    public int numBalls = 0;
+    const int totalColorBalls = 6;
+    public bool clearColorPhase = false;
     public int[] playerScore = { 0, 0 };
     [SerializeField] GameObject cue;
     // Start is called before the first frame update
@@ -60,33 +63,50 @@ public class GameManager : MonoBehaviour
         }
         if (successHit && successPool && !faulPool)
         {
-            // When successHit = true, acceptableBall can't be 0
+            // Succeeded a shot
             if (acceptableBall == 1)
             {
+                // Successfully pooled a red ball, next shot can be any colored ball
                 acceptableBall = 0;
-            }
-            else if (numRedBalls > 0)
+            } // Successfully pooled a colored ball
+            else if (clearColorPhase)
             {
-                acceptableBall = 1;
+                // In clear color phase, next shot is the next colored ball
+                acceptableBall += 1;
+            }
+            else if (numBalls == totalColorBalls)
+            {
+                // All red balls are pooled, enter clear color phase
+                acceptableBall = 2;
+                clearColorPhase = true;
             }
             else
             {
-                acceptableBall += 1;
+                // There are still red balls remaining, next shot is a red ball
+                acceptableBall = 1;
             }
         }
         else
         {
+            // Failed a shot, switch player
             playerTurn = (playerTurn + 1) % 2;
-            if (numRedBalls > 0)
+            if (!clearColorPhase)
             {
-                acceptableBall = 1;
-            }else if (acceptableBall == 0)
-            {
-                // The last red ball is pooled, the next colored ball not,
-                // then start from yellow ball
-                acceptableBall = 2;
+                if (numBalls == totalColorBalls)
+                {
+                    // All red balls are pooled, enter clear color phase
+                    acceptableBall = 2;
+                    clearColorPhase = true;
+                }
+                else
+                {
+                    // There are still red balls remaining, next shot is a red ball
+                    acceptableBall = 1;
+                }
             }
         }
+        // After results are calculated, reset flags
+        firstHit = successHit = successPool = faulPool = false;
     }
 
     public void addScore(int score)
@@ -96,6 +116,6 @@ public class GameManager : MonoBehaviour
 
     public void addScoreToOpponent(int score)
     {
-        playerScore[(playerTurn + 1) % 2] += score;
+        playerScore[(playerTurn + 1) % 2] += score > 4 ? score : 4;
     }
 }

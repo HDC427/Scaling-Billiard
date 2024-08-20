@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4767326266379681593}
   - component: {fileID: 3120221385252393300}
   - component: {fileID: 8616819981249025776}
-  - component: {fileID: 2151258986420088360}
+  - component: {fileID: -6481188329850088757}
   m_Layer: 0
   m_Name: SnookerBallYellow
   m_TagString: Untagged
@@ -134,7 +134,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.035149194
   m_Center: {x: 0.000000018626451, y: 0.00000007636845, z: 0.000000113621354}
---- !u!114 &2151258986420088360
+--- !u!114 &-6481188329850088757
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2599380916932703875}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edb588f9391470f47a5d83bf2a943df2, type: 3}
+  m_Script: {fileID: 11500000, guid: 0df1a7083d6e8024db1a19f371588c60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   score: 2

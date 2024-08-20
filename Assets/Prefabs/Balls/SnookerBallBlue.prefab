@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 938641316871152504}
   - component: {fileID: 8404606579311952302}
   - component: {fileID: -5123555501555764611}
-  - component: {fileID: -7887698432272160413}
+  - component: {fileID: -1725949761853755630}
   m_Layer: 0
   m_Name: SnookerBallBlue
   m_TagString: Untagged
@@ -134,7 +134,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.035149217
   m_Center: {x: 0, y: 0.000000113621354, z: 0.000000027939677}
---- !u!114 &-7887698432272160413
+--- !u!114 &-1725949761853755630
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4029913051901570551}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edb588f9391470f47a5d83bf2a943df2, type: 3}
+  m_Script: {fileID: 11500000, guid: 0df1a7083d6e8024db1a19f371588c60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   score: 5
