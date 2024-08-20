@@ -18,7 +18,12 @@ public class SwitchCamera : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            cam.enabled = !cam.enabled;
+            switchCamera();
         }
+    }
+
+    public void switchCamera()
+    {
+        cam.enabled = !cam.enabled;
     }
 }
