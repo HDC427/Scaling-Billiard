@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public int numBallsRolling = 0;
     public int playerTurn = 0;
     public int acceptableBall = 1;
+    public int faulScore = 4;
     public bool firstHit = false;
     public bool successHit, successPool, faulPool, cuePool;
     public int numBalls = 0;
@@ -53,6 +54,7 @@ public class GameManager : MonoBehaviour
         numBallsRolling = 0;
         playerTurn = 0;
         acceptableBall = 1;
+        faulScore = 4;
         firstHit = false;
         successHit = successPool = faulPool = cuePool = false;
         clearColorPhase = false;
@@ -84,13 +86,15 @@ public class GameManager : MonoBehaviour
 
     void handleShotResult()
     {
-        if (!firstHit)
+        if (!firstHit || !successHit || faulPool)
         {
-            addScoreToOpponent(4);
+            // Faul
+            addScoreToOpponent(faulScore);
         }
         if (successHit && successPool && !faulPool)
         {
-            // Succeeded a shot
+            // Succeeded a shot, accecptableBall can't be 0
+            addScore(acceptableBall);
             if (acceptableBall == 1)
             {
                 // Successfully pooled a red ball, next shot can be any colored ball
@@ -146,6 +150,14 @@ public class GameManager : MonoBehaviour
     {
         playerScore[(playerTurn + 1) % 2] += score > 4 ? score : 4;
         scoreText.text = $"Player1: {playerScore[0]}\nPlayer2: {playerScore[1]}";
+    }
+
+    public void setFaulScore(int score)
+    {
+        if (score > faulScore)
+        {
+            faulScore = score;
+        }
     }
 
     public void Restart()

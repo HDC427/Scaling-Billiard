@@ -2697,6 +2697,7 @@ MonoBehaviour:
   numBallsRolling: 0
   playerTurn: 0
   acceptableBall: 1
+  faulScore: 4
   firstHit: 0
   successHit: 0
   successPool: 0
@@ -8467,7 +8468,7 @@ PrefabInstance:
     - target: {fileID: -3457818276754909261, guid: 88185c3a60dd60d448012efdfafc6c11,
         type: 3}
       propertyPath: facingAngle
-      value: -20
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -3457818276754909261, guid: 88185c3a60dd60d448012efdfafc6c11,
         type: 3}

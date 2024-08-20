@@ -31,7 +31,7 @@ public class BallBehaviour : MonoBehaviour
                         }
                         else
                         {
-                            GameManager.GM.addScoreToOpponent(score);
+                            GameManager.GM.setFaulScore(score);
                         }
                     }
                     else // acceptableBall == 0, first hit can be any colored ball
@@ -43,7 +43,7 @@ public class BallBehaviour : MonoBehaviour
                         }
                         else
                         {
-                            GameManager.GM.addScoreToOpponent(score);
+                            GameManager.GM.setFaulScore(score);
                         }
                     }
                     
@@ -76,12 +76,11 @@ public class BallBehaviour : MonoBehaviour
         if (score == GameManager.GM.acceptableBall)
         {
             GameManager.GM.successPool = true;
-            GameManager.GM.addScore(score);
         }
         else
         {
             GameManager.GM.faulPool = true;
-            GameManager.GM.addScoreToOpponent(score);
+            GameManager.GM.setFaulScore(score);
         }
         GameManager.GM.numBallsRolling -= 1;
         isRolling = false;
