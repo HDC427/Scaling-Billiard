@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class CueBehaviour : MonoBehaviour
@@ -38,9 +39,14 @@ public class CueBehaviour : MonoBehaviour
         }
     }
 
-    public void resetPosition()
+    public void resetPosition(bool resetFacingAngle=false)
     {
         GetComponent<Rigidbody>().isKinematic = true;
+
+        if (resetFacingAngle)
+        {
+            facingAngle = 0;
+        }
 
         cueBallCenter = cueBall.transform.position;
         transform.position = cueBallCenter + offSetFromCueBall;

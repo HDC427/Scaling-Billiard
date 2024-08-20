@@ -2596,7 +2596,7 @@ PrefabInstance:
     - target: {fileID: 5098606630931067319, guid: 49cf2d48f056def44bca250664048a15,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.2914
+      value: 0.3045
       objectReference: {fileID: 0}
     - target: {fileID: 5098606630931067319, guid: 49cf2d48f056def44bca250664048a15,
         type: 3}
@@ -2606,7 +2606,7 @@ PrefabInstance:
     - target: {fileID: 5098606630931067319, guid: 49cf2d48f056def44bca250664048a15,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.087
+      value: -1.0789
       objectReference: {fileID: 0}
     - target: {fileID: 5098606630931067319, guid: 49cf2d48f056def44bca250664048a15,
         type: 3}
@@ -2685,10 +2685,11 @@ MonoBehaviour:
   successHit: 0
   successPool: 0
   faulPool: 0
+  cuePool: 0
   numBalls: 0
   clearColorPhase: 0
   playerScore: 0000000000000000
-  cue: {fileID: 1265622569}
+  cueBall: {fileID: 853133657}
   scoreText: {fileID: 164609011}
 --- !u!4 &157764310
 Transform:
@@ -6558,7 +6559,7 @@ PrefabInstance:
     - target: {fileID: 308835372588028872, guid: 162942bcd507da240bd3206db253f642,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.177
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 308835372588028872, guid: 162942bcd507da240bd3206db253f642,
         type: 3}
@@ -6568,7 +6569,7 @@ PrefabInstance:
     - target: {fileID: 308835372588028872, guid: 162942bcd507da240bd3206db253f642,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.087
+      value: -1.362
       objectReference: {fileID: 0}
     - target: {fileID: 308835372588028872, guid: 162942bcd507da240bd3206db253f642,
         type: 3}
@@ -6605,6 +6606,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1577210839839980890, guid: 162942bcd507da240bd3206db253f642,
+        type: 3}
+      propertyPath: cue
+      value: 
+      objectReference: {fileID: 1265622569}
+    - target: {fileID: 1577210839839980890, guid: 162942bcd507da240bd3206db253f642,
+        type: 3}
+      propertyPath: browBall
+      value: 
+      objectReference: {fileID: 980637482}
+    - target: {fileID: 1577210839839980890, guid: 162942bcd507da240bd3206db253f642,
+        type: 3}
+      propertyPath: cueCamera
+      value: 
+      objectReference: {fileID: 2038082147}
+    - target: {fileID: 1577210839839980890, guid: 162942bcd507da240bd3206db253f642,
+        type: 3}
+      propertyPath: topCamera
+      value: 
+      objectReference: {fileID: 961739752}
     - target: {fileID: 5959620920072618557, guid: 162942bcd507da240bd3206db253f642,
         type: 3}
       propertyPath: m_Name
@@ -8677,7 +8698,7 @@ PrefabInstance:
     - target: {fileID: 2478178859054902245, guid: 232a8e01cd898e64e8fe3f21d3b74dca,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.2914
+      value: -0.2956
       objectReference: {fileID: 0}
     - target: {fileID: 2478178859054902245, guid: 232a8e01cd898e64e8fe3f21d3b74dca,
         type: 3}
@@ -9718,6 +9739,12 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &980637482 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5636415495028774021, guid: 7cdf3e2fe9ab7764bbfc2a7de73afd2b,
+    type: 3}
+  m_PrefabInstance: {fileID: 840903552}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &981696058
 Mesh:
   m_ObjectHideFlags: 0

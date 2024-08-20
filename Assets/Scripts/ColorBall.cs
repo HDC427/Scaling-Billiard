@@ -10,6 +10,7 @@ public class ColorBall : BallBehaviour
     {
         GameManager.GM.numBalls += 1;
         initialPosition = transform.position;
+        needsReset = false;
     }
 
     // Update is called once per frame

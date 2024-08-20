@@ -18,17 +18,17 @@ public class GameManager : MonoBehaviour
 {
     
     public static GameManager GM;
-    public GameState gameState = GameState.playerControl;
+    public GameState gameState;
     public int numBallsRolling = 0;
     public int playerTurn = 0;
     public int acceptableBall = 1;
     public bool firstHit = false;
-    public bool successHit, successPool, faulPool;
+    public bool successHit, successPool, faulPool, cuePool;
     public int numBalls = 0;
     const int totalColorBalls = 6;
     public bool clearColorPhase = false;
     public int[] playerScore;
-    [SerializeField] GameObject cue;
+    [SerializeField] GameObject cueBall;
     [SerializeField] TextMeshProUGUI scoreText;
     // Start is called before the first frame update
     void Start()
@@ -49,12 +49,12 @@ public class GameManager : MonoBehaviour
 
     void initialize()
     {
-        gameState = GameState.playerControl;
+        gameState = GameState.placingCueBall;
         numBallsRolling = 0;
         playerTurn = 0;
         acceptableBall = 1;
         firstHit = false;
-        successHit = successPool = faulPool = false;
+        successHit = successPool = faulPool = cuePool = false;
         clearColorPhase = false;
         playerScore[0] = playerScore[1] = 0;
         scoreText.text = $"Player1: {playerScore[0]}\nPlayer2: {playerScore[1]}";
@@ -65,13 +65,9 @@ public class GameManager : MonoBehaviour
         {
             if(numBallsRolling == 0)
             {
-                // When all rolling balls come to a stop, a new shot start
-                gameState = GameState.playerControl;
+                // All rolling balls come to a stop, determine next shot according to flags
                 handleShotResult();
-
-                cue.SetActive(true);
-                cue.GetComponent<Collider>().isTrigger = true;
-                cue.GetComponent<CueBehaviour>().resetPosition();
+                cueBall.GetComponent<CueBall>().checkPooled();
             }
         }
     }

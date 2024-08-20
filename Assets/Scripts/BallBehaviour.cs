@@ -83,7 +83,6 @@ public class BallBehaviour : MonoBehaviour
             GameManager.GM.faulPool = true;
             GameManager.GM.addScoreToOpponent(score);
         }
-        Debug.Log("DEBUG");
         GameManager.GM.numBallsRolling -= 1;
         isRolling = false;
         afterPool();
