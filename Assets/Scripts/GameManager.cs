@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public enum GameState
 {
@@ -26,10 +27,12 @@ public class GameManager : MonoBehaviour
     public bool clearColorPhase = false;
     public int[] playerScore = { 0, 0 };
     [SerializeField] GameObject cue;
+    [SerializeField] TextMeshProUGUI scoreText; 
     // Start is called before the first frame update
     void Start()
     {
         GM = this;
+        scoreText.text = $"Player1: {playerScore[0]}\nPlayer2: {playerScore[1]}";
     }
 
     // Update is called once per frame
@@ -112,10 +115,12 @@ public class GameManager : MonoBehaviour
     public void addScore(int score)
     {
         playerScore[playerTurn] += score;
+        scoreText.text = $"Player1: {playerScore[0]}\nPlayer2: {playerScore[1]}";
     }
 
     public void addScoreToOpponent(int score)
     {
         playerScore[(playerTurn + 1) % 2] += score > 4 ? score : 4;
+        scoreText.text = $"Player1: {playerScore[0]}\nPlayer2: {playerScore[1]}";
     }
 }
