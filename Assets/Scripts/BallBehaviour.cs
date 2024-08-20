@@ -22,12 +22,11 @@ public class BallBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!isRolling && !collision.gameObject.CompareTag("Table"))
+        if (GameManager.GM.gameState == GameState.ballRolling && !isRolling && !collision.gameObject.CompareTag("Table"))
         {
             // A still ball starts moving
             isRolling = true;
             GameManager.GM.numBallsRolling += 1;
-            GameManager.GM.gameState = GameState.ballRolling;
 
             // check first hit
             if (!GameManager.GM.firstHit)
