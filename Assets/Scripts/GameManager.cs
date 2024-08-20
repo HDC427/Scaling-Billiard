@@ -7,8 +7,9 @@ using TMPro;
 
 public enum GameState
 {
+    placingCueBall,
     playerControl,
-    ballRolling,
+    ballRolling
 };
 
 

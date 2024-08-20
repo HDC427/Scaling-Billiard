@@ -10,5 +10,14 @@ public class CueBall : BallBehaviour
         // Cue ball does not add to numBalls
     }
 
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Cue"))
+        {
+            isRolling = true;
+            GameManager.GM.numBallsRolling += 1;
+            GameManager.GM.gameState = GameState.ballRolling;
+            StartCoroutine(checkMotion());
+        }
+    }
 }

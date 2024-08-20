@@ -8,17 +8,6 @@ public class BallBehaviour : MonoBehaviour
     public bool isRolling = false;
     private Vector3 positionLastCheck;
     public float checkInterval = 0.1f;
-    // Start is called before the first frame update
-    void Start()
-    {
-        GameManager.GM.numBalls += 1;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
- 
-    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -67,7 +56,7 @@ public class BallBehaviour : MonoBehaviour
         }
     }
 
-    IEnumerator checkMotion()
+    protected IEnumerator checkMotion()
     {
         while (isRolling)
         {
@@ -94,8 +83,9 @@ public class BallBehaviour : MonoBehaviour
             GameManager.GM.faulPool = true;
             GameManager.GM.addScoreToOpponent(score);
         }
-        gameObject.SetActive(false);
+        Debug.Log("DEBUG");
         GameManager.GM.numBallsRolling -= 1;
+        isRolling = false;
         afterPool();
     }
 
