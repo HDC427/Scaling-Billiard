@@ -106,18 +106,17 @@ public class CueBehaviour : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            GetComponent<Collider>().isTrigger = false;
             GetComponent<Rigidbody>().AddRelativeForce(shootForce * Vector3.forward, ForceMode.Acceleration);
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("CueBall"))
+        if (other.gameObject.CompareTag("CueBall"))
         {
+            other.gameObject.GetComponent<Rigidbody>().AddForce(facingDirection, ForceMode.VelocityChange);
             StartCoroutine(hideCueAfterShot());
         }
-        
     }
 
     IEnumerator hideCueAfterShot()

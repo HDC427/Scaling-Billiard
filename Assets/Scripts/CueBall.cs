@@ -10,9 +10,5 @@ public class CueBall : BallBehaviour
         // Cue ball does not add to numBalls
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }

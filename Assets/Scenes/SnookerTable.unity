@@ -8586,9 +8586,19 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3286609549233708454, guid: 88185c3a60dd60d448012efdfafc6c11,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3894529430433317371, guid: 88185c3a60dd60d448012efdfafc6c11,
         type: 3}
       propertyPath: m_Name
+      value: Cue
+      objectReference: {fileID: 0}
+    - target: {fileID: 3894529430433317371, guid: 88185c3a60dd60d448012efdfafc6c11,
+        type: 3}
+      propertyPath: m_TagString
       value: Cue
       objectReference: {fileID: 0}
     - target: {fileID: 5686315850873327606, guid: 88185c3a60dd60d448012efdfafc6c11,
