@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     public bool clearColorPhase = false;
     public int[] playerScore;
     [SerializeField] GameObject cueBall;
-    [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] TextMeshProUGUI infoText, scoreText;
     // Start is called before the first frame update
     void Start()
     {
@@ -61,14 +61,24 @@ public class GameManager : MonoBehaviour
     }
     void handleGameState()
     {
-        if (gameState == GameState.ballRolling)
+        switch (gameState)
         {
-            if(numBallsRolling == 0)
-            {
-                // All rolling balls come to a stop, determine next shot according to flags
-                handleShotResult();
-                cueBall.GetComponent<CueBall>().checkPooled();
-            }
+            case GameState.ballRolling:
+                if (numBallsRolling == 0)
+                {
+                    // All rolling balls come to a stop, determine next shot according to flags
+                    handleShotResult();
+                    cueBall.GetComponent<CueBall>().checkPooled();
+                }
+                break;
+
+            case GameState.playerControl:
+                infoText.text = $"Player{playerTurn + 1}'s turn";
+                break;
+
+            case GameState.placingCueBall:
+                infoText.text = $"Player{playerTurn + 1} place the cue ball";
+                break;
         }
     }
 
