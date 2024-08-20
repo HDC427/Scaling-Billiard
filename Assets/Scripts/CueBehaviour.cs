@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CueBehaviour : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class CueBehaviour : MonoBehaviour
     private Vector3 facingDirection = Vector3.forward;
     [SerializeField] private float rotationSpeed = 30;
 
+    [SerializeField] GameObject forceIndicator;
     [SerializeField] private float forceChangeRate, minForce, maxForce, shootForce;
     // The cue moves forward or backward proportional to the force to be applied
     [SerializeField] private float forceToDisplacement;
@@ -95,6 +97,7 @@ public class CueBehaviour : MonoBehaviour
         {
             float forceChange = forceChangeRate * Time.deltaTime;
             shootForce += forceChange;
+            updateForceIndicator();
             transform.Translate(forceToDisplacement * forceChange * Vector3.back);
             if (shootForce < minForce || shootForce > maxForce)
             {
@@ -121,5 +124,10 @@ public class CueBehaviour : MonoBehaviour
     {
         yield return new WaitForSeconds(disappearAfterShot);
         gameObject.SetActive(false);
+    }
+
+    void updateForceIndicator()
+    {
+        forceIndicator.GetComponent<Slider>().value = shootForce;
     }
 }

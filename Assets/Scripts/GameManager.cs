@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     public bool clearColorPhase = false;
     public int[] playerScore;
     [SerializeField] GameObject cue;
-    [SerializeField] TextMeshProUGUI scoreText; 
+    [SerializeField] TextMeshProUGUI scoreText;
     // Start is called before the first frame update
     void Start()
     {
