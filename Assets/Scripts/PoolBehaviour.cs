@@ -26,11 +26,11 @@ public class PoolBehaviour : MonoBehaviour
         other.gameObject.GetComponent<BallBehaviour>().handlePool();
         if (scaleUp)
         {
-            cueBall.transform.localScale *= (1 + score / 10.0f);
+            cueBall.transform.localScale *= (1 + score / 5.0f);
         }
         else
         {
-            cueBall.transform.localScale /= (1 + score / 10.0f);
+            cueBall.transform.localScale /= (1 + score / 5.0f);
         }
     }
 }
