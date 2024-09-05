@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using Unity.VisualScripting;
 
 public enum GameState
 {
@@ -45,6 +46,10 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             Restart();
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Quit();
         }
     }
 
@@ -164,5 +169,10 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(0);
         initialize();
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }
