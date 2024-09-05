@@ -75,8 +75,12 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
-#  vscode settings
+# vscode settings
 .vsconfig
+
+# large files, handled with LFS
+*.png
+*.tif
 
 # other
 *.pdf
