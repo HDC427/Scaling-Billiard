@@ -16,6 +16,7 @@ public class CueBehaviour : MonoBehaviour
     [SerializeField] private float facingAngle = 0, slopingAngle = 0;
     private Vector3 facingDirection = Vector3.forward;
     [SerializeField] private float rotationSpeed = 30;
+    private bool startShoot = false;
 
     [SerializeField] GameObject forceIndicator;
     [SerializeField] private float forceChangeRate, minForce, maxForce, shootForce;
@@ -42,7 +43,7 @@ public class CueBehaviour : MonoBehaviour
     public void resetPosition(bool resetFacingAngle=false)
     {
         GetComponent<Rigidbody>().isKinematic = true;
-
+        startShoot = false;
         if (resetFacingAngle)
         {
             facingAngle = 0;
@@ -112,14 +113,16 @@ public class CueBehaviour : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.Space))
         {
+            startShoot = true;
             GetComponent<Rigidbody>().AddRelativeForce(shootForce * Vector3.forward, ForceMode.Acceleration);
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("CueBall"))
+        if (startShoot && other.gameObject.CompareTag("CueBall"))
         {
+            startShoot = false;
             other.gameObject.GetComponent<Rigidbody>().AddForce(facingDirection, ForceMode.VelocityChange);
             StartCoroutine(hideCueAfterShot());
         }
